@@ -117,7 +117,7 @@ kubectl apply -f manifest/serviceaccount.yaml
 kubectl apply -f daemonset.yaml
 ```
 
-wait some times for label to be populated in billing
+wait some times for label to be populated in billing.
 
 # Notes :
 - this will not be working if you have nodepool that use taint/affinity/anti-affinity. 
