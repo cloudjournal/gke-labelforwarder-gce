@@ -57,6 +57,8 @@ this will be used for authorize. once created, export the key as json file. plea
     - compute.instances.setLabels
     - compute.instances.get
 
+be mindful to create less permission role as you can to implement least privileges.
+
 you may choose gcloud or via console. samples given via [GCLOUD](https://cloud.google.com/sdk/gcloud)
 
 ### Create Role
