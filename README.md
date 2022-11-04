@@ -49,7 +49,7 @@ if `topology.kubernetes.io/zone` used by your organization, then please use `fai
 2. applied the `topology.kubernetes.io/zone` value from 1st activities to the same node as compute engine.
 
 
-# Requirements
+## Requirements
 
 ## 1. create role and service account in google cloud
 this will be used for authorize. once created, export the key as json file. please be sure to use role that has :
@@ -97,22 +97,22 @@ for more information in :
   - serviceaccount creation, see [here](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
   - serviceaccount create json key, see [here](https://cloud.google.com/iam/docs/creating-managing-service-account-keys)
 
-2. import json keys as kubernetes secrets
+## 2. import json keys as kubernetes secrets
 ```
 kubectl create secret generic label-vol --from-file=key.json=/path/to/file/key.json
 ```
 
-3. apply rbac.yaml in manifest folder
+## 3. apply rbac.yaml in manifest folder
 ```
 kubectl apply -f manifest/rbac.yaml
 ```
 
-4. apply serviceaccount.yaml in manifest folder
+## 4. apply serviceaccount.yaml in manifest folder
 ```
 kubectl apply -f manifest/serviceaccount.yaml
 ```
 
-5. apply daemonset.yaml
+## 5. apply daemonset.yaml
 ```
 kubectl apply -f daemonset.yaml
 ```
