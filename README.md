@@ -46,13 +46,14 @@ there will be 2 activities that will be done with this :
 it will pick up `topology.kubernetes.io/zone` value by default, which will be used for 2nd activities.
 if `topology.kubernetes.io/zone` used by your organization, then please use `failure-domain.beta.kubernetes.io/zone` by specifying it in the daemonset.yaml `env` by utilizing `ZONE_LABEL` key
 
-2. applied the `topology.kubernetes.io/zone` value from 1st activities to the same node as compute engine. wait for some times for label to be populated in billing
+2. applied the `topology.kubernetes.io/zone` value from 1st activities to the same node as compute engine.
 
 
 # Requirements
 
 ## 1. create role and service account in google cloud
 this will be used for authorize. once created, export the key as json file. please be sure to use role that has :
+
     - compute.instances.setLabels
     - compute.instances.get
 
@@ -114,6 +115,7 @@ kubectl apply -f manifest/serviceaccount.yaml
 kubectl apply -f daemonset.yaml
 ```
 
+wait some times for label to be populated in billing
 
 # Notes :
 - this will not be working if you have nodepool that use taint/affinity/anti-affinity. 
