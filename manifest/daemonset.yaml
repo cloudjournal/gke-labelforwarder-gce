@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: label-agent
+  labels:
+    app: label-agent
+spec:
+  selector:
+    matchLabels:
+      app: label-agent
+  template:
+    metadata:
+      labels:
+        name: label-agent
+        app: label-agent
+    spec:
+      serviceAccountName: label-sa
+      automountServiceAccountToken: true
+      volumes:
+      - name: label-vol
+        secret:
+          secretName: label-vol
+      containers:
+      - image: cloudjournal/gke-labelnodeforwarder:v1.6
+        name: label-agent
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: KEY_LABELS
+          value: "app,department,pool"
+        - name: CHECK_INTERVAL
+          value: "60"
+        - name: OVERRIDE_LABELS
+          value: "true"
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: ZONE_LABEL
+          value: "topology.kubernetes.io/zone"
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /var/secrets/google/key.json
+        volumeMounts:
+        - name: label-vol
+          mountPath: /var/secrets/google
