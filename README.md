@@ -113,6 +113,19 @@ kubectl apply -f manifest/serviceaccount.yaml
 ```
 
 ## 5. apply daemonset.yaml
+
+before you apply the daemonset, there are several environment variables that can be adjusted for your needs.
+
+
+|    Environment Variable    |    Usage   |     Purpose   |
+|------------|-----------|-----------|
+| KEY_LABELS | string with comma delimiter i.e = "app,department,pool,division" | label key that this application will try to get from Node Label  |
+| CHECK_INTERVAL | string number i.e = "60" | how long the probe re-do the activity. "if your org rarely update the labels, please use larger interval such as 86400 or more"  |
+| OVERRIDE_LABELS | string true/false i.e = "true" | flag to mark wether gke node label allow to override compute engine label if same key exist |
+| ZONE_LABEL | string contains zone lable i.e = "topology.kubernetes.io/zone" | label where application will use to get info about zone and region |
+| GOOGLE_APPLICATION_CREDENTIALS | path to service account i.e = /var/secrets/google/key.json | google application credential file location. this use in conjunction with [secret](https://github.com/cloudjournal/gke-labelforwarder-gce#2-import-json-keys-as-kubernetes-secrets) |
+
+
 ```
 kubectl apply -f daemonset.yaml
 ```
